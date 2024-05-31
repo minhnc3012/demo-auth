@@ -12,10 +12,12 @@ import jakarta.servlet.http.HttpServletResponse;
 public class TenantWebFilter extends OncePerRequestFilter {
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
 		String tenantId = request.getHeader("X-TenantId");
 		System.out.println("X-TenantId: " + tenantId);
+		
+		chain.doFilter(request, response);
 	}
 
 }
