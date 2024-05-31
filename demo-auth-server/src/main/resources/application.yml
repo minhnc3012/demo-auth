@@ -1,0 +1,31 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: demo-auth-server
+ 
+  datasource:
+    url: jdbc:postgresql://localhost:5432/demo-oauth2
+    username: postgres
+    password: ADMIN
+    hikari:
+      connection-test-query: SELECT 1
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        formatSql: true
+  security:
+    oauth2:
+      authorizationserver:
+        issuer: http://auth-server:9000 # update host 127.0.0.1 auth-server
+logging:
+  level:
+    org:
+      springframework:
+        security: trace

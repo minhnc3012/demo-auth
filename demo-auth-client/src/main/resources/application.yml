@@ -1,0 +1,42 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: demo-auth-client
+
+  security:
+    oauth2:
+      client:
+        registration:
+          public-client-oidc:
+            provider: spring # Ensure this line is correct and matches the provider below
+            client-id: public-client
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://kerb.localhost:8080/login/oauth2/code/{registrationId}"
+            scope: client.read, client.write, openid, profile
+            client-name: public-client-oidc
+            require-authorization-consent: true
+          #public-client-authorization-code:
+          #  provider: spring
+          #  client-id: public-client
+          #  client-secret: secret
+          #  authorization-grant-type: authorization_code
+          #  redirect-uri: "http://127.0.0.1:8080/authorized"
+          #  scope: client.read, client.write
+          #  client-name: public-client-authorization-code
+          #public-client-client-credentials:
+          #  provider: spring
+          #  client-id: public-client
+          #  client-secret: secret
+          #  authorization-grant-type: client_credentials
+          #  scope: message.read,message.write
+          #  client-name: messaging-client-client-credentials
+        provider:
+          spring:
+            issuer-uri: http://auth-server:9000
+            authorization-uri: http://auth-server:9000/oauth2/authorize
+            #token-uri: http://auth-server:9000/oauth2/token
+            #user-info-uri: http://auth-server:8888/userinfo
+            #jwk-set-uri: http://auth-server:9000/jwks.json
+            #user-name-attribute: sub
